@@ -3,288 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지우개 성능 비교</title>
+    <title>지우개 성능 비교 실험</title>
 
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, "Malgun Gothic", sans-serif;
-            background: #f4f6f8;
+            font-family: "Malgun Gothic", Arial, sans-serif;
+            background: #f5f7fa;
             color: #222;
-            padding: 40px 20px;
+            line-height: 1.7;
         }
 
         .container {
+            width: 90%;
             max-width: 1000px;
             margin: auto;
         }
 
-        header {
+        /* 표지 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-bottom: 40px;
         }
 
-        header h1 {
-            font-size: 38px;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: #666;
-            font-size: 17px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
+        .hero-box {
             background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
+            padding: 70px 50px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+            width: 100%;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .eraser {
-            font-size: 55px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .card h2 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            text-align: center;
-            color: #777;
+        .emoji {
+            font-size: 70px;
             margin-bottom: 20px;
         }
 
-        .score {
-            font-size: 32px;
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .student {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            font-size: 17px;
             font-weight: bold;
+        }
+
+        /* 공통 섹션 */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
             text-align: center;
-            margin-bottom: 12px;
+            font-size: 30px;
+            margin-bottom: 40px;
+        }
+
+        .box {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        /* 실험 목적 */
+        .purpose {
+            text-align: center;
+            font-size: 19px;
+        }
+
+        /* 실험 방법 */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 50%;
+            background: #222;
+            color: white;
+            margin: 0 auto 15px;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 8px;
+        }
+
+        /* 결과 */
+        .results {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .result {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .result-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result h3 {
+            font-size: 20px;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .bar {
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
+            height: 15px;
+            background: #e9ecef;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
         }
 
         .fill {
             height: 100%;
+            background: #222;
             border-radius: 10px;
         }
 
-        .green {
-            background: #22c55e;
+        .rank {
+            margin-top: 12px;
+            color: #666;
         }
 
-        .yellow {
-            background: #eab308;
-        }
-
-        .red {
-            background: #ef4444;
-        }
-
-        .grade {
+        /* 결론 */
+        .conclusion {
             text-align: center;
+        }
+
+        .winner {
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin: 20px 0;
         }
 
-        .good {
-            color: #16a34a;
-        }
-
-        .normal {
-            color: #ca8a04;
-        }
-
-        .bad {
-            color: #dc2626;
-        }
-
-        .info {
-            background: #fff;
-            margin-top: 35px;
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        .info h2 {
-            margin-bottom: 15px;
-        }
-
-        .info ul {
-            padding-left: 20px;
-            line-height: 1.8;
+        .conclusion p {
             color: #555;
+            font-size: 18px;
         }
 
         footer {
+            background: #222;
+            color: white;
             text-align: center;
-            margin-top: 35px;
-            color: #999;
-            font-size: 14px;
+            padding: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .steps,
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-box {
+                padding: 50px 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+    <!-- 표지 -->
+    <div class="hero">
+        <div class="container">
+            <div class="hero-box">
 
-    <header>
-        <h1>🧽 지우개 성능 비교</h1>
-        <p>지우개 종류에 따라 얼마나 잘 지워지는지 비교해보자!</p>
-    </header>
+                <div class="emoji">✏️</div>
 
-    <div class="cards">
+                <h1>지우개 종류에 따른<br>지우개 성능 비교</h1>
 
-        <div class="card">
-            <div class="eraser">⬜</div>
-            <h2>일반 지우개</h2>
-            <p class="description">가장 흔하게 사용하는 기본 지우개</p>
+                <p>
+                    어떤 종류의 지우개가 연필 자국을<br>
+                    가장 깨끗하게 지울 수 있을까?
+                </p>
 
-            <div class="score">90점</div>
+                <div class="student">
+                    6학년 2반 28번 최민우
+                </div>
 
-            <div class="bar">
-                <div class="fill green" style="width: 90%;"></div>
             </div>
-
-            <div class="grade good">★★★★★ 매우 잘 지워짐</div>
-
-            <p>연필 자국을 깔끔하게 지울 수 있고 가성비가 좋음.</p>
         </div>
-
-
-        <div class="card">
-            <div class="eraser">🟦</div>
-            <h2>플라스틱 지우개</h2>
-            <p class="description">단단하고 지우는 힘이 강한 지우개</p>
-
-            <div class="score">96점</div>
-
-            <div class="bar">
-                <div class="fill green" style="width: 96%;"></div>
-            </div>
-
-            <div class="grade good">★★★★★ 매우 잘 지워짐</div>
-
-            <p>진한 연필 자국도 비교적 깨끗하게 지워지는 편.</p>
-        </div>
-
-
-        <div class="card">
-            <div class="eraser">🟨</div>
-            <h2>말랑한 지우개</h2>
-            <p class="description">부드럽고 가벼운 느낌의 지우개</p>
-
-            <div class="score">82점</div>
-
-            <div class="bar">
-                <div class="fill yellow" style="width: 82%;"></div>
-            </div>
-
-            <div class="grade normal">★★★★☆ 잘 지워짐</div>
-
-            <p>부드럽게 지워지지만 진한 자국은 조금 남을 수 있음.</p>
-        </div>
-
-
-        <div class="card">
-            <div class="eraser">🧼</div>
-            <h2>미술용 지우개</h2>
-            <p class="description">연필 드로잉에 많이 사용하는 지우개</p>
-
-            <div class="score">88점</div>
-
-            <div class="bar">
-                <div class="fill green" style="width: 88%;"></div>
-            </div>
-
-            <div class="grade good">★★★★☆ 잘 지워짐</div>
-
-            <p>그림이나 연필 스케치에서 세밀하게 사용하기 좋음.</p>
-        </div>
-
-
-        <div class="card">
-            <div class="eraser">🩷</div>
-            <h2>컬러 지우개</h2>
-            <p class="description">색상이 다양한 일반 지우개</p>
-
-            <div class="score">75점</div>
-
-            <div class="bar">
-                <div class="fill yellow" style="width: 75%;"></div>
-            </div>
-
-            <div class="grade normal">★★★☆☆ 보통</div>
-
-            <p>일반적인 연필 자국은 잘 지워지지만 제품에 따라 차이가 있음.</p>
-        </div>
-
-
-        <div class="card">
-            <div class="eraser">🟫</div>
-            <h2>저가형 지우개</h2>
-            <p class="description">가격이 저렴한 기본 지우개</p>
-
-            <div class="score">60점</div>
-
-            <div class="bar">
-                <div class="fill red" style="width: 60%;"></div>
-            </div>
-
-            <div class="grade bad">★★★☆☆ 보통</div>
-
-            <p>가벼운 자국은 지워지지만 진한 자국은 남을 수 있음.</p>
-        </div>
-
     </div>
 
 
-    <div class="info">
-        <h2>📊 평가 기준</h2>
+    <!-- 실험 목적 -->
+    <section>
+        <div class="container">
 
-        <ul>
-            <li><strong>90~100점</strong> → 매우 잘 지워짐</li>
-            <li><strong>80~89점</strong> → 잘 지워짐</li>
-            <li><strong>70~79점</strong> → 보통</li>
-            <li><strong>60~69점</strong> → 조금 아쉬움</li>
-            <li><strong>0~59점</strong> → 잘 안 지워짐</li>
-        </ul>
-    </div>
+            <h2 class="section-title">01. 실험 목적</h2>
+
+            <div class="box purpose">
+                <p>
+                    우리가 일상생활에서 사용하는 지우개는<br>
+                    종류와 재질에 따라 지워지는 정도가 다를 수 있다.
+                </p>
+
+                <br>
+
+                <p>
+                    이번 실험에서는 여러 종류의 지우개를 사용하여<br>
+                    같은 조건에서 연필 자국을 지워보고<br>
+                    어떤 지우개가 가장 효과적인지 비교한다.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 실험 방법 -->
+    <section>
+        <div class="container">
+
+            <h2 class="section-title">02. 실험 방법</h2>
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>연필 자국 만들기</h3>
+                    <p>
+                        같은 종류의 연필로<br>
+                        비슷한 세기의 자국을 만든다.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>지우개로 지우기</h3>
+                    <p>
+                        각 지우개로 같은 횟수만큼<br>
+                        연필 자국을 지운다.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>결과 비교</h3>
+                    <p>
+                        남은 연필 자국을 확인하여<br>
+                        지워진 정도를 점수로 비교한다.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 실험 결과 -->
+    <section>
+        <div class="container">
+
+            <h2 class="section-title">03. 실험 결과</h2>
+
+            <div class="results">
+
+                <div class="result">
+                    <div class="result-top">
+                        <h3>① 일반 지우개</h3>
+                        <div class="score">90점</div>
+                    </div>
+
+                    <div class="bar">
+                        <div class="fill" style="width:90%;"></div>
+                    </div>
+
+                    <div class="rank">잘 지워지는 편</div>
+                </div>
+
+
+                <div class="result">
+                    <div class="result-top">
+                        <h3>② 플라스틱 지우개</h3>
+                        <div class="score">96점</div>
+                    </div>
+
+                    <div class="bar">
+                        <div class="fill" style="width:96%;"></div>
+                    </div>
+
+                    <div class="rank">가장 잘 지워짐</div>
+                </div>
+
+
+                <div class="result">
+                    <div class="result-top">
+                        <h3>③ 말랑한 지우개</h3>
+                        <div class="score">82점</div>
+                    </div>
+
+                    <div class="bar">
+                        <div class="fill" style="width:82%;"></div>
+                    </div>
+
+                    <div class="rank">잘 지워지는 편</div>
+                </div>
+
+
+                <div class="result">
+                    <div class="result-top">
+                        <h3>④ 미술용 지우개</h3>
+                        <div class="score">88점</div>
+                    </div>
+
+                    <div class="bar">
+                        <div class="fill" style="width:88%;"></div>
+                    </div>
+
+                    <div class="rank">잘 지워지는 편</div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 결론 -->
+    <section>
+        <div class="container">
+
+            <h2 class="section-title">04. 결론</h2>
+
+            <div class="box conclusion">
+
+                <p>실험 결과 가장 높은 점수를 받은 지우개는</p>
+
+                <div class="winner">
+                    🏆 플라스틱 지우개
+                </div>
+
+                <p>
+                    플라스틱 지우개가 다른 지우개보다<br>
+                    연필 자국을 비교적 깨끗하게 지울 수 있었다.
+                </p>
+
+                <br>
+
+                <p>
+                    하지만 지우개마다 재질과 특성이 다르기 때문에<br>
+                    사용하는 목적에 맞는 지우개를 선택하는 것이 좋다.
+                </p>
+
+            </div>
+
+        </div>
+    </section>
 
 
     <footer>
-        ※ 점수는 예시이며 실제 제품과 차이가 있을 수 있습니다.
+        6학년 2반 28번 최민우 · 1인 1프로젝트
     </footer>
-
-</div>
 
 </body>
 </html>
