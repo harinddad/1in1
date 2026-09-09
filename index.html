@@ -32,6 +32,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-box {
@@ -40,7 +42,70 @@
             border-radius: 25px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.08);
             width: 100%;
+            position: relative;
+            z-index: 10;
         }
+
+        /* 플로팅 아이콘 섹션 */
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .icon-eraser {
+            width: 60px;
+            height: 60px;
+            background: #FFD700;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .icon:nth-child(2) { top: 20%; left: 25%; animation-delay: 0.5s; }
+        .icon:nth-child(3) { top: 15%; left: 40%; animation-delay: 1s; }
+        .icon:nth-child(4) { top: 10%; left: 55%; animation-delay: 1.5s; }
+        .icon:nth-child(5) { top: 25%; left: 70%; animation-delay: 2s; }
+        .icon:nth-child(6) { top: 40%; left: 15%; animation-delay: 0.7s; }
+        .icon:nth-child(7) { top: 50%; left: 30%; animation-delay: 1.2s; }
+        .icon:nth-child(8) { top: 45%; left: 50%; animation-delay: 1.8s; }
+        .icon:nth-child(9) { top: 55%; left: 70%; animation-delay: 0.3s; }
+        .icon:nth-child(10) { top: 70%; left: 25%; animation-delay: 1.4s; }
+        .icon:nth-child(11) { top: 75%; left: 45%; animation-delay: 0.9s; }
+        .icon:nth-child(12) { top: 65%; left: 65%; animation-delay: 2.2s; }
 
         .emoji {
             font-size: 70px;
@@ -203,6 +268,18 @@
             .hero-box {
                 padding: 50px 25px;
             }
+
+            .icon {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+
+            .icon-eraser {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -211,6 +288,20 @@
 
     <!-- 표지 -->
     <div class="hero">
+        <div class="floating-icons">
+            <div class="icon">🐱</div>
+            <div class="icon">🎨</div>
+            <div class="icon">🌐</div>
+            <div class="icon">⚛️</div>
+            <div class="icon">💻</div>
+            <div class="icon">🔧</div>
+            <div class="icon">📦</div>
+            <div class="icon-eraser">🗑️</div>
+            <div class="icon">🚀</div>
+            <div class="icon">🎯</div>
+            <div class="icon">💡</div>
+            <div class="icon">🔐</div>
+        </div>
         <div class="container">
             <div class="hero-box">
 
