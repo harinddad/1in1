@@ -1,9 +1,292 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>My Subdomain Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지우개 성능 비교</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, "Malgun Gothic", sans-serif;
+            background: #f4f6f8;
+            color: #222;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .eraser {
+            font-size: 55px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .green {
+            background: #22c55e;
+        }
+
+        .yellow {
+            background: #eab308;
+        }
+
+        .red {
+            background: #ef4444;
+        }
+
+        .grade {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .good {
+            color: #16a34a;
+        }
+
+        .normal {
+            color: #ca8a04;
+        }
+
+        .bad {
+            color: #dc2626;
+        }
+
+        .info {
+            background: #fff;
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .info h2 {
+            margin-bottom: 15px;
+        }
+
+        .info ul {
+            padding-left: 20px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>안녕하세요! 서브도메인 연결 테스트 중입니다.</h1>
+
+<div class="container">
+
+    <header>
+        <h1>🧽 지우개 성능 비교</h1>
+        <p>지우개 종류에 따라 얼마나 잘 지워지는지 비교해보자!</p>
+    </header>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="eraser">⬜</div>
+            <h2>일반 지우개</h2>
+            <p class="description">가장 흔하게 사용하는 기본 지우개</p>
+
+            <div class="score">90점</div>
+
+            <div class="bar">
+                <div class="fill green" style="width: 90%;"></div>
+            </div>
+
+            <div class="grade good">★★★★★ 매우 잘 지워짐</div>
+
+            <p>연필 자국을 깔끔하게 지울 수 있고 가성비가 좋음.</p>
+        </div>
+
+
+        <div class="card">
+            <div class="eraser">🟦</div>
+            <h2>플라스틱 지우개</h2>
+            <p class="description">단단하고 지우는 힘이 강한 지우개</p>
+
+            <div class="score">96점</div>
+
+            <div class="bar">
+                <div class="fill green" style="width: 96%;"></div>
+            </div>
+
+            <div class="grade good">★★★★★ 매우 잘 지워짐</div>
+
+            <p>진한 연필 자국도 비교적 깨끗하게 지워지는 편.</p>
+        </div>
+
+
+        <div class="card">
+            <div class="eraser">🟨</div>
+            <h2>말랑한 지우개</h2>
+            <p class="description">부드럽고 가벼운 느낌의 지우개</p>
+
+            <div class="score">82점</div>
+
+            <div class="bar">
+                <div class="fill yellow" style="width: 82%;"></div>
+            </div>
+
+            <div class="grade normal">★★★★☆ 잘 지워짐</div>
+
+            <p>부드럽게 지워지지만 진한 자국은 조금 남을 수 있음.</p>
+        </div>
+
+
+        <div class="card">
+            <div class="eraser">🧼</div>
+            <h2>미술용 지우개</h2>
+            <p class="description">연필 드로잉에 많이 사용하는 지우개</p>
+
+            <div class="score">88점</div>
+
+            <div class="bar">
+                <div class="fill green" style="width: 88%;"></div>
+            </div>
+
+            <div class="grade good">★★★★☆ 잘 지워짐</div>
+
+            <p>그림이나 연필 스케치에서 세밀하게 사용하기 좋음.</p>
+        </div>
+
+
+        <div class="card">
+            <div class="eraser">🩷</div>
+            <h2>컬러 지우개</h2>
+            <p class="description">색상이 다양한 일반 지우개</p>
+
+            <div class="score">75점</div>
+
+            <div class="bar">
+                <div class="fill yellow" style="width: 75%;"></div>
+            </div>
+
+            <div class="grade normal">★★★☆☆ 보통</div>
+
+            <p>일반적인 연필 자국은 잘 지워지지만 제품에 따라 차이가 있음.</p>
+        </div>
+
+
+        <div class="card">
+            <div class="eraser">🟫</div>
+            <h2>저가형 지우개</h2>
+            <p class="description">가격이 저렴한 기본 지우개</p>
+
+            <div class="score">60점</div>
+
+            <div class="bar">
+                <div class="fill red" style="width: 60%;"></div>
+            </div>
+
+            <div class="grade bad">★★★☆☆ 보통</div>
+
+            <p>가벼운 자국은 지워지지만 진한 자국은 남을 수 있음.</p>
+        </div>
+
+    </div>
+
+
+    <div class="info">
+        <h2>📊 평가 기준</h2>
+
+        <ul>
+            <li><strong>90~100점</strong> → 매우 잘 지워짐</li>
+            <li><strong>80~89점</strong> → 잘 지워짐</li>
+            <li><strong>70~79점</strong> → 보통</li>
+            <li><strong>60~69점</strong> → 조금 아쉬움</li>
+            <li><strong>0~59점</strong> → 잘 안 지워짐</li>
+        </ul>
+    </div>
+
+
+    <footer>
+        ※ 점수는 예시이며 실제 제품과 차이가 있을 수 있습니다.
+    </footer>
+
+</div>
+
 </body>
 </html>
+```
