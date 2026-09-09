@@ -93,11 +93,18 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.06);
             position: relative;
             overflow: hidden;
-            min-height: 250px;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
         }
 
         .feature-card::before {
@@ -137,14 +144,34 @@
 
         .feature-text h3 {
             font-size: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #222;
         }
 
-        .feature-text p {
+        .feature-details {
             font-size: 14px;
-            color: #666;
-            line-height: 1.6;
+            color: #555;
+            line-height: 1.8;
+            text-align: left;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .feature-card.active .feature-details {
+            max-height: 300px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .feature-details ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .feature-details li {
+            margin: 8px 0;
         }
 
         /* 공통 섹션 */
@@ -288,7 +315,7 @@
             }
 
             .feature-card {
-                min-height: 200px;
+                min-height: auto;
             }
 
             .feature-icon {
@@ -322,19 +349,33 @@
 
                 <!-- 피처 카드 -->
                 <div class="hero-features">
-                    <div class="feature-card">
+                    <div class="feature-card" data-card="1">
                         <div class="feature-icon">🗑️</div>
                         <div class="feature-text">
-                            <h3>다양한 지우개</h3>
-                            <p>일반, 플라스틱, 말랑한, 미술용 지우개를 비교합니다.</p>
+                            <h3>다양한 지우개 비교</h3>
+                            <div class="feature-details">
+                                <ul>
+                                    <li><strong>일반 지우개:</strong> 가장 많이 사용되는 표준형 지우개입니다. 연필 자국을 효과적으로 지워주며, 내구성이 좋고 저렴합니다.</li>
+                                    <li><strong>플라스틱 지우개:</strong> 단단한 플라스틱 재질로 만들어진 지우개입니다. 가장 높은 성능을 자랑하며 지워진 부분이 가장 깨끗합니다.</li>
+                                    <li><strong>말랑한 지우개:</strong> 부드러운 재질의 지우개로 손에 편하게 잡을 수 있습니다. 섬세한 작업에 적합합니다.</li>
+                                    <li><strong>미술용 지우개:</strong> 전문가용 지우개로 정밀한 지우기에 특화되어 있습니다.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="feature-card">
+                    <div class="feature-card" data-card="2">
                         <div class="feature-icon">📊</div>
                         <div class="feature-text">
-                            <h3>성능 비교</h3>
-                            <p>과학적인 방법으로 각 지우개의 성능을 측정합니다.</p>
+                            <h3>실험 방식 설명</h3>
+                            <div class="feature-details">
+                                <ul>
+                                    <li><strong>공정성 확보:</strong> 모든 지우개로 같은 연필, 같은 종이, 같은 힘으로 진행했습니다.</li>
+                                    <li><strong>측정 방법:</strong> 각 지우개로 10회 반복해서 연필 자국을 지운 후 남은 흔적을 점수로 평가했습니다.</li>
+                                    <li><strong>평가 기준:</strong> 자국이 완전히 사라진 경우를 100점으로 하여, 남은 흔적의 정도에 따라 감점했습니다.</li>
+                                    <li><strong>결론 도출:</strong> 평균 점수를 계산하여 최고 성능의 지우개를 선정했습니다.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -540,10 +581,16 @@
             mainEraser.style.transform = 'translateX(0) translateY(0)';
         });
 
-        // 피처 카드 아이콘 호버 효과
-        const featureIcons = document.querySelectorAll('.feature-icon');
+        // 피처 카드 클릭하면 상세 설명 펼치기
+        const featureCards = document.querySelectorAll('.feature-card');
         
-        featureIcons.forEach(icon => {
+        featureCards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('active');
+            });
+
+            // 아이콘 호버 효과
+            const icon = card.querySelector('.feature-icon');
             icon.addEventListener('mousemove', (e) => {
                 const rect = icon.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
