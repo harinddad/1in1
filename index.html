@@ -32,8 +32,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
         .hero-box {
@@ -43,54 +41,18 @@
             box-shadow: 0 10px 35px rgba(0,0,0,0.08);
             width: 100%;
             position: relative;
+        }
+
+        .hero-content {
+            position: relative;
             z-index: 10;
         }
 
-        /* 플로팅 아이콘 섹션 */
-        .floating-icons {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-
-        .icon-container {
-            position: absolute;
-            cursor: pointer;
-        }
-
-        .icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            user-select: none;
-        }
-
-        .icon:hover {
-            transform: scale(1.2) translateY(-10px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-
-        .icon.eraser {
-            background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
-            font-size: 28px;
-        }
-
-        .icon.eraser:hover {
-            background: linear-gradient(135deg, #FFE700 0%, #FFD700 100%);
-            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+        .hero-icon {
+            font-size: 120px;
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
         }
 
         .emoji {
@@ -114,6 +76,75 @@
             border-top: 1px solid #eee;
             font-size: 17px;
             font-weight: bold;
+        }
+
+        /* 추가 컨테이너 */
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: shimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10px, 10px); }
+        }
+
+        .feature-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.15);
+        }
+
+        .feature-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .feature-text h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .feature-text p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
         }
 
         /* 공통 섹션 */
@@ -247,7 +278,8 @@
             }
 
             .steps,
-            .results {
+            .results,
+            .hero-features {
                 grid-template-columns: 1fr;
             }
 
@@ -255,10 +287,12 @@
                 padding: 50px 25px;
             }
 
-            .icon {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
+            .feature-card {
+                min-height: 200px;
+            }
+
+            .feature-icon {
+                font-size: 60px;
             }
         }
     </style>
@@ -268,21 +302,41 @@
 
     <!-- 표지 -->
     <div class="hero">
-        <div class="floating-icons" id="floatingIcons"></div>
         <div class="container">
             <div class="hero-box">
 
-                <div class="emoji">✏️</div>
+                <div class="hero-content">
+                    <div class="hero-icon" id="mainEraser">✏️</div>
 
-                <h1>지우개 종류에 따른<br>지우개 성능 비교</h1>
+                    <h1>지우개 종류에 따른<br>지우개 성능 비교</h1>
 
-                <p>
-                    어떤 종류의 지우개가 연필 자국을<br>
-                    가장 깨끗하게 지울 수 있을까?
-                </p>
+                    <p>
+                        어떤 종류의 지우개가 연필 자국을<br>
+                        가장 깨끗하게 지울 수 있을까?
+                    </p>
 
-                <div class="student">
-                    6학년 2반 28번 최민우
+                    <div class="student">
+                        6학년 2반 28번 최민우
+                    </div>
+                </div>
+
+                <!-- 피처 카드 -->
+                <div class="hero-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🗑️</div>
+                        <div class="feature-text">
+                            <h3>다양한 지우개</h3>
+                            <p>일반, 플라스틱, 말랑한, 미술용 지우개를 비교합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">
+                            <h3>성능 비교</h3>
+                            <p>과학적인 방법으로 각 지우개의 성능을 측정합니다.</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -462,40 +516,36 @@
     </footer>
 
     <script>
-        const icons = [
-            { emoji: '🐱', x: 10, y: 10 },
-            { emoji: '🎨', x: 25, y: 20 },
-            { emoji: '🌐', x: 40, y: 15 },
-            { emoji: '⚛️', x: 55, y: 10 },
-            { emoji: '💻', x: 70, y: 25 },
-            { emoji: '🔧', x: 15, y: 40 },
-            { emoji: '📦', x: 30, y: 50 },
-            { emoji: '🗑️', x: 50, y: 50, isEraser: true },
-            { emoji: '🚀', x: 70, y: 45 },
-            { emoji: '🎯', x: 25, y: 65 },
-            { emoji: '💡', x: 45, y: 70 },
-            { emoji: '🔐', x: 65, y: 65 }
-        ];
+        // 메인 지우개 아이콘 호버 효과
+        const mainEraser = document.getElementById('mainEraser');
+        
+        mainEraser.addEventListener('mousemove', (e) => {
+            const rect = mainEraser.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
 
-        const floatingIconsContainer = document.getElementById('floatingIcons');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
 
-        icons.forEach((iconData, index) => {
-            const container = document.createElement('div');
-            container.className = 'icon-container';
-            container.style.left = iconData.x + '%';
-            container.style.top = iconData.y + '%';
-            container.style.transform = 'translate(-50%, -50%)';
+            const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
+            const distance = 40;
 
-            const icon = document.createElement('div');
-            icon.className = 'icon' + (iconData.isEraser ? ' eraser' : '');
-            icon.textContent = iconData.emoji;
+            const newX = Math.cos(angle) * distance;
+            const newY = Math.sin(angle) * distance;
 
-            container.appendChild(icon);
-            floatingIconsContainer.appendChild(container);
+            mainEraser.style.transform = `translateX(${newX}px) translateY(${newY}px)`;
+        });
 
-            // 마우스 무브 시 아이콘을 마우스 방향으로 밀어냄
-            container.addEventListener('mouseenter', (e) => {
-                const rect = container.getBoundingClientRect();
+        mainEraser.addEventListener('mouseleave', () => {
+            mainEraser.style.transform = 'translateX(0) translateY(0)';
+        });
+
+        // 피처 카드 아이콘 호버 효과
+        const featureIcons = document.querySelectorAll('.feature-icon');
+        
+        featureIcons.forEach(icon => {
+            icon.addEventListener('mousemove', (e) => {
+                const rect = icon.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
 
@@ -503,33 +553,16 @@
                 const mouseY = e.clientY;
 
                 const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
-                const distance = 80;
+                const distance = 50;
 
                 const newX = Math.cos(angle) * distance;
                 const newY = Math.sin(angle) * distance;
 
-                icon.style.transform = `translateX(${newX}px) translateY(${newY}px)`;
+                icon.style.transform = `scale(1.15) translateX(${newX}px) translateY(${newY}px)`;
             });
 
-            container.addEventListener('mouseleave', () => {
-                icon.style.transform = 'translateX(0) translateY(0)';
-            });
-
-            container.addEventListener('mousemove', (e) => {
-                const rect = container.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-
-                const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
-                const distance = 80;
-
-                const newX = Math.cos(angle) * distance;
-                const newY = Math.sin(angle) * distance;
-
-                icon.style.transform = `translateX(${newX}px) translateY(${newY}px)`;
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = 'scale(1) translateX(0) translateY(0)';
             });
         });
     </script>
